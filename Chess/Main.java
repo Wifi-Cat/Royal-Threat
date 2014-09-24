@@ -29,8 +29,13 @@ public class Main {
 			int numthreat = 0;
 			for (int k = 0; k < pieces.length; k++) {
 				for (int z = 0; z < pieces.length; z++) {
-					if (board.threatens(pieces[k], pieces[z]))
-						numthreat++;
+					if (board.threatens(pieces[k], pieces[z])) {
+						// was piece already threatened? then skip
+						if (!pieces[z].prevThreatened()) {
+							numthreat++;
+							pieces[z].nowThreatened();
+						}
+					}
 				}
 			}
 			System.out.println("Configuration " + (i + 1) + ": " + numthreat
